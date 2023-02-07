@@ -8,24 +8,26 @@ const router = express.Router();
 //     res.status(200).send("You are authenticated")
 // })
 
+//Owner & admin
 // router.get("/checkuser/:id", verifyUser, (req,res,next)=>{
 //     res.status(200).send("You are verified user by param")
 // })
 
+//admin only
 // router.get("/checkadmin/:id", verifyAdmin, (req,res,next)=>{
 //     res.status(200).send("You are verified admin")
 // })
 
 //UPDATE
-router.put("/:id", updateUser)
+router.put("/:id", verifyUser, updateUser)
 
 //DELETE
-router.delete("/:id", deleteUser)
+router.delete("/:id", verifyUser, deleteUser)
 
 //GET
-router.get("/:id", getUser)
+router.get("/:id", verifyUser, getUser)
 
 //GET ALL
-router.get("/", getAllUser)
+router.get("/", verifyAdmin, getAllUser)
 
 export default router;
