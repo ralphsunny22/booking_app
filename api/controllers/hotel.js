@@ -45,3 +45,18 @@ export const getAllHotel = async (req,res,next)=>{
         next(err) //calling error handler in index.js
     }
 }
+
+export const countByCity = async (req,res,next)=>{
+    const cities = req.query.cities.split(',') //['berlin', 'abuja']
+    
+    try {
+        //foreach city, get the count, store in list variable
+        const list = await Promise.all(cities.map(city=>{
+            // return Hotel.find({city:city}).length 
+            return Hotel.countDocuments({city:city})
+        }))
+        res.status(200).json(list) //[3,2,5]
+    } catch (err) {
+        next(err) //calling error handler in index.js
+    }
+}
